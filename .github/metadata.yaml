@@ -1,0 +1,10 @@
+# .github/metadata.yaml
+description: "Provisional Xcode workspace and scheme document models for Swift."
+topics:
+  - standards
+  - xcode
+  - workspace
+homepage: "https://swift-institute.org"
+visibility: private
+readme:
+  family: E
