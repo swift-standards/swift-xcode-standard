@@ -31,7 +31,17 @@ dependencies: [
 ]
 ```
 
-Products:
+Add the products your target needs:
+
+```swift
+.target(
+    name: "App",
+    dependencies: [
+        .product(name: "Xcode Workspace Standard", package: "swift-xcode-standard"),
+        .product(name: "Xcode Scheme Standard", package: "swift-xcode-standard")
+    ]
+)
+```
 
 - `Xcode Workspace Standard` exposes `Xcode.Workspace`.
 - `Xcode Scheme Standard` exposes `Xcode.Scheme`.
