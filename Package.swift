@@ -9,11 +9,11 @@ let package = Package(
         .iOS(.v26),
         .tvOS(.v26),
         .watchOS(.v26),
-        .visionOS(.v26)
+        .visionOS(.v26),
     ],
     products: [
         .library(name: "Xcode Workspace Standard", targets: ["Xcode Workspace Standard"]),
-        .library(name: "Xcode Scheme Standard", targets: ["Xcode Scheme Standard"])
+        .library(name: "Xcode Scheme Standard", targets: ["Xcode Scheme Standard"]),
     ],
     targets: [
         .target(name: "Xcode Standard"),
@@ -32,7 +32,7 @@ let package = Package(
         .testTarget(
             name: "Xcode Scheme Standard Tests",
             dependencies: ["Xcode Scheme Standard"]
-        )
+        ),
     ],
     swiftLanguageModes: [.v6]
 )

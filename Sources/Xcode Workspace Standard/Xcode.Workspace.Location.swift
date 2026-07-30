@@ -8,8 +8,8 @@ extension Xcode.Workspace {
 
         public var rawValue: Swift.String {
             switch self {
-            case let .group(path): "group:\(path)"
-            case let .absolute(path): "absolute:\(path)"
+            case .group(let path): "group:\(path)"
+            case .absolute(let path): "absolute:\(path)"
             case .self: "self:"
             }
         }
