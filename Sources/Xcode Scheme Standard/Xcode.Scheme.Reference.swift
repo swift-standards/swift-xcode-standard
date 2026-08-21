@@ -1,7 +1,7 @@
 public import Xcode_Standard
 
 extension Xcode.Scheme {
-    /// Xcode's observed `BuildableReference` record.
+
     public struct Reference: Sendable, Equatable {
         public var identifier: Swift.String
         public var blueprint: Swift.String
