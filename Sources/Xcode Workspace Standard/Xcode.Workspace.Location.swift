@@ -1,31 +1,30 @@
 public import Xcode_Standard
 
 extension Xcode.Workspace {
-    public enum Location: Sendable, Equatable {
-        case group(Swift.String)
-        case absolute(Swift.String)
-        case `self`
+    public struct Location: Sendable, Equatable {
+        public let scheme: Scheme
+        public let path: Swift.String
+
+        public init(scheme: Scheme, path: Swift.String) {
+            self.scheme = scheme
+            self.path = path
+        }
     }
 }
 
 extension Xcode.Workspace.Location {
     public var rawValue: Swift.String {
-        switch self {
-        case .group(let path): "group:\(path)"
-        case .absolute(let path): "absolute:\(path)"
-        case .self: "self:"
-        }
+        "\(scheme.rawValue):\(path)"
     }
 
     public init?(rawValue: Swift.String) {
-        if rawValue == "self:" {
-            self = .self
-        } else if rawValue.hasPrefix("group:") {
-            self = .group(Swift.String(rawValue.dropFirst(6)))
-        } else if rawValue.hasPrefix("absolute:") {
-            self = .absolute(Swift.String(rawValue.dropFirst(9)))
-        } else {
-            return nil
-        }
+        guard let separator = rawValue.firstIndex(of: ":") else { return nil }
+        let rawScheme = Swift.String(rawValue[..<separator])
+        guard let scheme = Scheme(rawValue: rawScheme) else { return nil }
+
+        self.init(
+            scheme: scheme,
+            path: Swift.String(rawValue[rawValue.index(after: separator)...])
+        )
     }
 }
