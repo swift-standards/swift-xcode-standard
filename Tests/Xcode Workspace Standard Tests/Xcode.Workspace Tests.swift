@@ -4,13 +4,13 @@ import Xcode_Workspace_Standard
 @Test
 func `workspace models observed locations`() {
     let workspace = Xcode.Workspace(references: [
-        .init(location: .init(scheme: .group, path: "Application")),
-        .init(location: .init(scheme: .group, path: "Packages/a&b")),
-        .init(location: .init(scheme: .container, path: "../Package")),
-        .init(location: .init(scheme: .absolute, path: "/tmp/Package")),
-        .init(location: .init(scheme: .self, path: "")),
-        .init(
-            location: .init(
+        .file(.init(scheme: .group, path: "Application")),
+        .file(.init(scheme: .group, path: "Packages/a&b")),
+        .file(.init(scheme: .container, path: "../Package")),
+        .file(.init(scheme: .absolute, path: "/tmp/Package")),
+        .file(.init(scheme: .self, path: "")),
+        .file(
+            .init(
                 scheme: .other(.init(rawValue: "future")!),
                 path: "Package"
             )
@@ -18,7 +18,12 @@ func `workspace models observed locations`() {
     ])
 
     #expect(
-        workspace.references.map(\.location.rawValue) == [
+        workspace.references.compactMap { reference in
+            switch reference {
+            case .file(let location): location.rawValue
+            case .group: nil
+            }
+        } == [
             "group:Application",
             "group:Packages/a&b",
             "container:../Package",
@@ -27,6 +32,20 @@ func `workspace models observed locations`() {
             "future:Package",
         ]
     )
+}
+
+@Test
+func `workspace preserves nested reference hierarchy`() {
+    let file = Xcode.Workspace.Reference.file(.init(scheme: .group, path: "Package"))
+    let group = Xcode.Workspace.Reference.group(
+        .init(
+            name: "Packages",
+            location: .init(scheme: .container, path: ""),
+            references: [file]
+        )
+    )
+
+    #expect(Xcode.Workspace(references: [group]).references == [group])
 }
 
 @Test(

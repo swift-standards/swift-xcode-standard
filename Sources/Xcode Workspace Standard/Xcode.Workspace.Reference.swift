@@ -1,11 +1,8 @@
 public import Xcode_Standard
 
 extension Xcode.Workspace {
-    public struct Reference: Sendable, Equatable {
-        public var location: Location
-
-        public init(location: Location) {
-            self.location = location
-        }
+    public indirect enum Reference: Sendable, Equatable {
+        case file(Location)
+        case group(Group)
     }
 }
