@@ -10,9 +10,10 @@ func `scheme models build and test references`() {
     )
     let scheme = Xcode.Scheme(
         build: [.init(reference: reference)],
-        test: [.init(reference: reference)]
+        test: [.init(reference: reference, parallelizable: true)]
     )
 
     #expect(scheme.build.map(\.reference) == [reference])
     #expect(scheme.test.map(\.reference) == [reference])
+    #expect(scheme.test.map(\.parallelizable) == [true])
 }
