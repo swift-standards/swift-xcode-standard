@@ -19,7 +19,7 @@ let workspace = Xcode.Workspace(references: [
 ])
 ```
 
-Serialization and file operations belong to [swift-xcode](https://github.com/swift-foundations/swift-xcode).
+Serialization and file operations belong to [swift-xcode](https://github.com/swift-compositions/swift-xcode).
 
 ---
 
