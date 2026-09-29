@@ -5,7 +5,9 @@ extension Xcode.Workspace.Location.Scheme {
         public let rawValue: Swift.String
 
         public init?(rawValue: Swift.String) {
-            guard !rawValue.isEmpty, !rawValue.contains(":") else { return nil }
+            guard !rawValue.isEmpty, !rawValue.contains(":"),
+                !["group", "container", "absolute", "self"].contains(rawValue)
+            else { return nil }
             self.rawValue = rawValue
         }
     }

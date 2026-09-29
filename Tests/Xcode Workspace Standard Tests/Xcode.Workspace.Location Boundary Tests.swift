@@ -37,3 +37,8 @@ func `workspace defaults to format version one`() {
     #expect(workspace.version == "1.0")
     #expect(workspace.references.isEmpty)
 }
+
+@Test(arguments: ["group", "container", "absolute", "self"])
+func `workspace scheme token rejects reserved scheme names`(_ rawValue: String) {
+    #expect(Xcode.Workspace.Location.Scheme.Token(rawValue: rawValue) == nil)
+}
