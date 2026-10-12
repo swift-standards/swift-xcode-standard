@@ -19,33 +19,33 @@ let package = Package(
         .target(name: "Xcode Standard"),
         .target(
             name: "Xcode Workspace Standard",
-            dependencies: ["Xcode Standard"]
+            dependencies: [.target(name: "Xcode Standard")]
         ),
         .target(
             name: "Xcode Scheme Standard",
-            dependencies: ["Xcode Standard"]
+            dependencies: [.target(name: "Xcode Standard")]
         ),
         .testTarget(
             name: "Xcode Workspace Standard Tests",
-            dependencies: ["Xcode Workspace Standard"]
+            dependencies: [.target(name: "Xcode Workspace Standard")]
         ),
         .testTarget(
             name: "Xcode Scheme Standard Tests",
-            dependencies: ["Xcode Scheme Standard"]
+            dependencies: [.target(name: "Xcode Scheme Standard")]
         ),
     ],
     swiftLanguageModes: [.v6]
 )
 
 for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
-    target.swiftSettings =
-        (target.swiftSettings ?? []) + [
-            .strictMemorySafety(),
-                .enableExperimentalFeature("Lifetimes"),
-                .enableUpcomingFeature("ExistentialAny"),
-            .enableUpcomingFeature("InferIsolatedConformances"),
-            .enableUpcomingFeature("InternalImportsByDefault"),
-                .enableUpcomingFeature("MemberImportVisibility"),
-            .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-        ]
+    target.swiftSettings = (target.swiftSettings ?? []) + [
+        .strictMemorySafety(),
+        .enableUpcomingFeature("ExistentialAny"),
+        .enableUpcomingFeature("InternalImportsByDefault"),
+        .enableUpcomingFeature("MemberImportVisibility"),
+        .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+        .enableUpcomingFeature("InferIsolatedConformances"),
+        .enableExperimentalFeature("Lifetimes"),
+        .treatAllWarnings(as: .error),
+    ]
 }

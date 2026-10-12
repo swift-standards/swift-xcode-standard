@@ -11,7 +11,7 @@ extension Xcode.Workspace.Location {
 }
 
 extension Xcode.Workspace.Location.Scheme {
-    public var rawValue: Swift.String {
+    public var rawValue: Swift::String {
         switch self {
         case .group: "group"
         case .container: "container"
@@ -21,7 +21,7 @@ extension Xcode.Workspace.Location.Scheme {
         }
     }
 
-    public init?(rawValue: Swift.String) {
+    public init?(rawValue: Swift::String) {
         switch rawValue {
         case "group": self = .group
         case "container": self = .container
